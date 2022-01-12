@@ -1,0 +1,11 @@
+LOAD_VAL 10
+WRITE_VAR "y"
+
+LOAD_VAL 5
+WRITE_VAR "x"
+READ_VAR "x"
+
+READ_VAR "y"
+WRITE_VAR "x"
+
+READ_VAR "x"
