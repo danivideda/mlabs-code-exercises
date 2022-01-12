@@ -60,19 +60,20 @@ readVal str rest = maybeToVal (find ((== str) . maybeToStr) $ runByteCodes rest)
 
 instructions :: String -> [ByteCodes]
 instructions x = map stringToByteCodes (cleanLines $ reverse $ lines x)
-    where
-        cleanLines :: [String] -> [String]
-        cleanLines [] = []
-        cleanLines (x : xs)
-            | x == "" = cleanLines xs
-            | otherwise = x : cleanLines xs
+  where
+    cleanLines :: [String] -> [String]
+    cleanLines [] = []
+    cleanLines (x : xs)
+        | x == "" = cleanLines xs
+        | otherwise = x : cleanLines xs
 
 runByteCodes :: [ByteCodes] -> [ByteCodes]
 runByteCodes [] = []
 runByteCodes (op : rest) = case op of
     WRITE_VAR var -> storeVar [WRITE_VAR var, findVal rest] : runByteCodes rest
     READ_VAR var -> readVal var rest : runByteCodes rest
-    LOAD_VAL val -> LOAD_VAL val : runByteCodes rest
+    -- ADD -> add rest : runByteCodes rest
+    -- LOAD_VAL val -> LOAD_VAL val : runByteCodes rest
     -- TODO: case for other byte codes Operations
     _ -> runByteCodes rest
 
